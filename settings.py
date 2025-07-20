@@ -1,7 +1,14 @@
+'''
+settings.py
+Nathaniel Decker
+The purpose of this program is to maintain the settings for the game
+'''
 from pathlib import Path
 class Settings:
+    '''Stores default credentials for Alien Invasion'''
 
     def __init__(self):
+        '''Intitializes the default credentials for Alien Invasion'''
         self.name: str = 'Alien Invasion'
         self.screen_w = 1200
         self.screen_h = 800

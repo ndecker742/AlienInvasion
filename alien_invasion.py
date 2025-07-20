@@ -1,3 +1,9 @@
+'''
+alien_invasion-2
+Nathaniel Decker
+This program runs and manages the key functionality of the Alien Invasion game
+20JUL2025
+'''
 import sys
 import pygame
 from settings import Settings
@@ -5,8 +11,19 @@ from ship import Ship
 from arsenal import Arsenal
 
 class AlienInvasion:
+    '''Main class for managing functionality of Alien Invasion game'''
 
     def __init__(self):
+        '''
+        Initializes the vital game components:
+
+        - Set up Pygame environment and screen display
+        - Load and scale background and overlay images
+        - Configure game clock and running state
+        - Initialize laser sound with volume control
+        - Create player ship and assign its weapon arsenal
+        '''
+
         pygame.init()
         self.settings = Settings()
 
@@ -33,7 +50,7 @@ class AlienInvasion:
         self.ship = Ship(self, Arsenal(self))
     
     def run_game(self):
-        #Game loop
+        '''Starts and maintains the game loop'''
         while self.running:
             self._check_events()
             self.ship.update()
@@ -41,13 +58,14 @@ class AlienInvasion:
             self.clock.tick(self.settings.FPS)
 
     def _update_screen(self):
+        '''Updates the screen every frame'''
         self.screen.blit(self.bg, (0,0))
         self.screen.blit(self.overlay, (0,0))
         self.ship.draw()
         pygame.display.flip()
         
-
     def _check_events(self):
+        '''Handles user input events'''
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.running = False
@@ -58,14 +76,25 @@ class AlienInvasion:
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
 
-
     def _check_keyup_events(self, event):
+        '''
+        Handles instances when specific keys are "up"
+
+        Args:
+            event (obj): the action that the player is doing
+        '''
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
     def _check_keydown_events(self, event):
+        '''
+        Handles instances when specific keys are "down"
+
+        Args:
+            event (obj): the action the player is doing
+        '''
         if event.key == pygame.K_RIGHT:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
@@ -78,7 +107,6 @@ class AlienInvasion:
             self.running = False
             pygame.quit()
             sys.exit()
-
 
 
 if __name__ == '__main__':
