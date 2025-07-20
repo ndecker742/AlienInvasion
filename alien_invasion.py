@@ -19,6 +19,8 @@ class AlienInvasion:
         self.bg = pygame.transform.scale(self.bg, 
             (self.settings.screen_w, self.settings.screen_h)
             )
+        
+        self.overlay = pygame.image.load(self.settings.bg_overlay_file)
 
         self.running = True
         self.clock = pygame.time.Clock()
@@ -40,6 +42,7 @@ class AlienInvasion:
 
     def _update_screen(self):
         self.screen.blit(self.bg, (0,0))
+        self.screen.blit(self.overlay, (0,0))
         self.ship.draw()
         pygame.display.flip()
         
@@ -70,6 +73,7 @@ class AlienInvasion:
         elif event.key == pygame.K_SPACE:
             if self.ship.fire():
                 self.laser_sound.play()
+                self.laser_sound.fadeout(250)
         elif event.key == pygame.K_q:
             self.running = False
             pygame.quit()
