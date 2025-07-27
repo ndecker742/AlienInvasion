@@ -25,17 +25,31 @@ class AlienFleet:
         
         fleet_w, fleet_h = self.calculate_fleet_size(alien_w, screen_w, alien_h, screen_h)
         x_offset, y_offset = self.calculate_offsets(alien_w, alien_h, screen_w, fleet_w, fleet_h)
-        
-        self._create_rectangle_fleet(alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset)
 
-    def _create_rectangle_fleet(self, alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset):
-        for row in range(fleet_h):
-            for col in range(fleet_w):
+        self._create_drifted_fleet(alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset)
+    
+
+    def _create_drifted_fleet(self, alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset):
+        vertical_shift = 10  # subtle vertical offset per column
+
+        for col in range(fleet_w):
+            for row in range(fleet_h):
                 current_x = alien_w * col + x_offset
-                current_y = alien_h * row + y_offset
+                current_y = alien_h * row + y_offset + col * vertical_shift
                 if col % 2 == 0 or row % 2 == 0:
                     continue
                 self._create_alien(current_x, current_y)
+
+
+
+    # def _create_rectangle_fleet(self, alien_w, alien_h, fleet_w, fleet_h, x_offset, y_offset):
+    #     for row in range(fleet_h):
+    #         for col in range(fleet_w):
+    #             current_x = alien_w * col + x_offset
+    #             current_y = alien_h * row + y_offset
+    #             if col % 2 == 0 or row % 2 == 0:
+    #                 continue
+    #             self._create_alien(current_x, current_y)
 
     def calculate_offsets(self, alien_w, alien_h, screen_w, fleet_w, fleet_h):
         half_screen = self.settings.screen_h // 2
