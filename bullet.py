@@ -2,7 +2,7 @@
 bullet.py
 Nathaniel Decker
 The purpose of this program is to manage the different aspects of the bullet
-20JUL2025
+27JUL2025
 '''
 import pygame
 from pygame.sprite import Sprite

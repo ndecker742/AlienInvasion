@@ -1,8 +1,8 @@
 '''
 alien_invasion-2
 Nathaniel Decker
-This program runs and manages the key functionality of the Alien Invasion game
-20JUL2025
+Runs and manages the key functionality of the Alien Invasion game
+27JUL2025
 '''
 import sys
 import pygame
@@ -59,7 +59,6 @@ class AlienInvasion:
         self.alien_fleet.create_fleet()
         self.game_active = True
 
-
     def run_game(self):
         '''Starts and maintains the game loop'''
         while self.running:
@@ -71,28 +70,27 @@ class AlienInvasion:
             self._update_screen()
             self.clock.tick(self.settings.FPS)
 
-
     def _check_collisions(self):
-        # check collisions for ship
+        '''Checks collisions for the ship'''
         if self.ship.check_collisions(self.alien_fleet.fleet):
             self._check_game_status()
-            # the alien fleet to reset
-            # the ship to recenter
-            # subtract one life if possible
 
-        # check collisions for aliens and bottom of screen
         if self.alien_fleet.check_fleet_bottom():
+            '''Check collisions for aliens and bottom of screen'''
             self._check_game_status()
+        
         # check collisions of projectiles and aliens
         collisions = self.alien_fleet.check_collisions(self.ship.arsenal.arsenal)
         if collisions:
             self.impact_sound.play()
             self.impact_sound.fadeout(500)
 
+        # If the entire alien fleet is destoryed restart the level
         if self.alien_fleet.check_destroyed_status():
             self._reset_level()
 
     def _check_game_status(self):
+        '''Handles the player losing lives and losing the game'''
         if self.game_stats.ships_left > 0:
             self.game_stats.ships_left -= 1
             self._reset_level()
@@ -100,13 +98,11 @@ class AlienInvasion:
         else:
             self.game_active = False
 
-
-
     def _reset_level(self):
+        '''Logically resets the level'''
         self.ship.arsenal.arsenal.empty()
         self.alien_fleet.fleet.empty()
         self.alien_fleet.create_fleet()
-
 
     def _update_screen(self):
         '''Updates the screen every frame'''

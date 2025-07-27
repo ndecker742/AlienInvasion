@@ -2,6 +2,7 @@
 arsenal.py
 Nathaniel Decker
 The purpose of this program is to manage the different aspects of the gun
+27JUL2025
 '''
 import pygame
 from bullet import Bullet

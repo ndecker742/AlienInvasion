@@ -2,7 +2,7 @@
 ship.py
 Nathaniel Decker
 The purpose of this file is to control the different aspects of the ship
-20JUL2025
+27JUL2025
 '''
 import pygame
 from typing import TYPE_CHECKING
@@ -39,6 +39,7 @@ class Ship:
         self.arsenal = arsenal
 
     def _center_ship(self):
+        '''Centers the ship to the middle-bottom of the screen'''
         self.rect.midbottom = self.boundaries.midbottom
         self.x = float(self.rect.x)
 
@@ -71,8 +72,16 @@ class Ship:
         '''
         return self.arsenal.fire_bullet()
     
-
     def check_collisions(self, other_group):
+        '''
+        Checks if the ship has collided with any other sprite
+
+        Args:
+            other_group (pygame.sprite.Group): The other colldiing sprite
+
+        Returns:
+            bool: True if collision occured; False if not
+        '''
         if pygame.sprite.spritecollideany(self, other_group):
             self._center_ship()
             return True

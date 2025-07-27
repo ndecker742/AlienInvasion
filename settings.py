@@ -2,6 +2,7 @@
 settings.py
 Nathaniel Decker
 The purpose of this program is to maintain the settings for the game
+27JUL2025
 '''
 from pathlib import Path
 class Settings:

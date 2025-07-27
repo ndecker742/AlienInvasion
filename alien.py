@@ -1,8 +1,8 @@
 '''
-bullet.py
+alien.py
 Nathaniel Decker
-The purpose of this program is to manage the different aspects of the bullet
-20JUL2025
+This porgram manages specific alien entities within the fleet
+27JUL2025
 '''
 import pygame
 from pygame.sprite import Sprite
@@ -12,14 +12,16 @@ if TYPE_CHECKING:
     from alien_fleet import AlienFleet
 
 class Alien(Sprite):
-    '''Represents the projectiles fired by the ship'''
+    '''Represents a single alien within the fleet'''
     
     def __init__(self, fleet: 'AlienFleet', x: float, y: float):
         '''
-        Initialize a bullet with positional and visual aspects
+        Initialize an alien with reference to X-and-Y positioning
 
         Args:
-            game (AlienInvasion): The game setting; provides context
+            fleet (AlienFleet): The alien fleet; provides context
+            x (float): Initialize horizontal position of the alien
+            y (float): Initialize vertical position of the alien
         '''
         super().__init__()
 
@@ -40,22 +42,26 @@ class Alien(Sprite):
         self.y = float(self.rect.y)
         self.x = float(self.rect.x)
 
-        #self.y = float(self.rect.y)
-
-
     def update(self):
+        '''Updates the aliens position based on speed and direction'''
         temp_speed = self.settings.fleet_speed
 
         self.x += temp_speed * self.fleet.fleet_direction
         self.rect.x = int(self.x)
         self.rect.y = int(self.y)
 
-
     def check_edges(self):
-        return (self.rect.right >= self.boundaries.right or self.rect.left <= self.boundaries.left)
+        '''Checks the aliens have reached the hoirzontal edge of the screen
 
+        Returns:
+            bool: True if the alien touches or crosses designated boundaries
+        '''
+        return (
+            self.rect.right >= self.boundaries.right 
+            or self.rect.left <= self.boundaries.left
+        )
 
     def draw_alien(self):
-        '''Draws the bullet on screen'''
+        '''Draws the alien on screen'''
         self.screen.blit(self.image, self.rect)
 
