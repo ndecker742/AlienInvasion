@@ -17,6 +17,7 @@ class Settings:
         self.bg_file = Path.cwd() / 'Assets' / 'images' / 'SpaceBackground1.png'
         self.bg_overlay_file = Path.cwd() / 'Assets' / 'images' / 'moon_overlay.png'
         self.difficulty_scale = 1.1
+        self.scores_file = Path.cwd() / 'Assets' / 'file' / 'scores.json'
         
         self.ship_file = Path.cwd() / 'Assets' / 'images' / 'spaceship_small_blue.png'
         self.ship_w = 40
