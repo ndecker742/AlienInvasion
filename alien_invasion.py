@@ -97,8 +97,8 @@ class AlienInvasion:
         if self.alien_fleet.check_destroyed_status():
             self._reset_level()
             self.settings.increase_difficulty()
-            self.game_stats._update_level
-            # update HUD view
+            self.game_stats._update_level()
+            self.HUD._update_level()
 
     def _check_game_status(self):
         '''Handles the player losing lives and losing the game'''
@@ -119,7 +119,7 @@ class AlienInvasion:
         self.settings.initialize_dynamic_settings()
         self.game_stats.reset_stats()
         self.game_stats.init_saved_scores()
-        
+
         self.HUD.update_scores()
         self._reset_level()
         self.ship._center_ship()
