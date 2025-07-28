@@ -50,6 +50,7 @@ class Settings:
         self.font_file = Path.cwd() / 'Assets' / 'Fonts' / 'Silkscreen' / 'Silkscreen-Bold.ttf'
 
     def initialize_dynamic_settings(self):
+        '''Initializes the dynamic settings for AlienInvasion'''
         self.ship_speed = 5
         self.starting_ship_count = 3
 
@@ -63,6 +64,7 @@ class Settings:
         self.alien_points = 50
 
     def increase_difficulty(self):
+        '''Logic for increasing the difficulty of AlienInvasion'''
         self.ship_speed *= self.difficulty_scale
         self.bullet_speed *= self.difficulty_scale
         self.fleet_speed *= self.difficulty_scale

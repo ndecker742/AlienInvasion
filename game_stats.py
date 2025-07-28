@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from alien_invasion import AlienInvasion
 
 class GameStats():
-    '''Keeps track of game stats'''
+    '''Manages all of the game stats for AlienInvasion'''
     
     def __init__(self, game: 'AlienInvasion'):
         '''
@@ -29,6 +29,7 @@ class GameStats():
         self.reset_stats()
 
     def init_saved_scores(self):
+        '''Loads the saved high score. If NA, initializes a default score'''
         self.path = self.settings.scores_file
         if self.path.exists() and self.path.stat.__sizeof__() > 20:
             contents = self.path.read_text()
@@ -40,6 +41,7 @@ class GameStats():
             # save the file
     
     def save_scores(self):
+        '''Logic for dumping and loading the saved high score'''
         scores = {
             'hi_score': self.hi_score
         }
@@ -50,38 +52,45 @@ class GameStats():
             print(f'File Not Found: {e}')
 
     def reset_stats(self):
+        '''resets the 'Every game' stats'''
         self.ships_left = self.settings.starting_ship_count
         self.score = 0
         self.level = 1
 
     def update(self, collisions):
-        # update score
+        '''
+        Updates the relevant scores
+
+        Args:
+            collisions (dict): Dict of collisions between sprite and bullet
+        '''
         self._update_score(collisions)
-
-        # update max score
         self._update_max_score()
-
-        # update high score
         self._update_hi_score()
 
     def _update_max_score(self):
+        '''Updates the max score'''
         if self.score > self.max_score:
             self.max_score = self.score
-        # print(f"Max: {self.max_score}")
 
     def _update_hi_score(self):
+        '''Updates the high score'''
         if self.score > self.hi_score:
             self.hi_score = self.score
             self.save_scores()
-        # print(f"Hi: {self.hi_score}")
     
     def _update_score(self, collisions):
+        '''
+        Updates the score as aliens are killed
+
+        Args:
+            collisions (dict): Dict of collisions between sprite and bullet
+        '''
         for alien in collisions.values():
             self.score += self.settings.alien_points
-        # print(f"Basic: {self.score}")
-
 
     def _update_level(self):
+        '''Updates the level through increments'''
         self.level += 1
 
     
